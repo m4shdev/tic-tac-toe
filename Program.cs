@@ -64,23 +64,22 @@ class Program {
     //     if (panelState != "X" || panelState != "O") panelState = "O";
     // }
 
-    static bool CheckWinner(int index, string sign) {
-        index--;
-
-        if (panels[index - 1] == sign) {
-            if (panels[index - 2] == sign) {
+    static bool CheckWinner(int indexX, int indexY, string sign) {
+        
+        if (panels[indexX, indexY--] == sign) {
+            if (panels[indexX, indexY - 2] == sign) {
                 return true;
             }
         }
 
-        if (panels[index + 2] == sign) {
-            if (panels[index + 4] == sign) {
+        if (panels[indexX++, indexY--] == sign) {
+            if (panels[indexX, indexY - 2] == sign) {
                 return true;
             }
         }
 
-        if (panels[index + 3] == sign) {
-            if (panels[index + 3] == sign) {
+        if (panels[indexX++, indexY] == sign) {
+            if (panels[indexX + 2, indexY] == sign) {
                 return true;
             }
         }
