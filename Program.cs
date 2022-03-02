@@ -1,8 +1,22 @@
-﻿namespace TicTacToe;
+﻿using System.Collection.Generic;
+
+namespace TicTacToe;
 
 class Program {
     
     // static bool running = false;
+
+    static Dictionary< string, Tuple<int, int> > inputToIndices = new Dictionary< string, Tuple<int, int> >(9);
+
+    inputToIndices.Add("1", Tuple.Create(0, 0));
+    inputToIndices.Add("2", Tuple.Create(0, 1));
+    inputToIndices.Add("3", Tuple.Create(0, 2));
+    inputToIndices.Add("4", Tuple.Create(1, 0));
+    inputToIndices.Add("5", Tuple.Create(1, 1));
+    inputToIndices.Add("6", Tuple.Create(1, 2));
+    inputToIndices.Add("7", Tuple.Create(2, 0));
+    inputToIndices.Add("8", Tuple.Create(2, 1));
+    inputToIndices.Add("9", Tuple.Create(2, 2));
 
     static string[,] panels = new string[3, 3] {
         {"1", "2", "3"},
@@ -46,14 +60,12 @@ class Program {
         return returnString;
     } 
 
-    // static void InputPlayerOne() {
-    //     System.Console.Write("Player 1 input position here [X]: ");
-    //     string choice = Console.ReadLine();
+    static void InputPlayerOne() {
+        System.Console.Write("Player 1 input position here [X]: ");
+        string choice = Console.ReadLine();
 
-    //     string panelState = panels[int.Parse(choice) - 1].state;
-
-    //     if (panelState != "X" || panelState != "O") panelState = "X";
-    // }
+        
+    }
 
     // static void InputPlayerTwo() {
     //     System.Console.Write("Player 2 input position here [O]: ");
@@ -64,8 +76,10 @@ class Program {
     //     if (panelState != "X" || panelState != "O") panelState = "O";
     // }
     
-    static bool CheckWinner(int indexX, int indexY, string sign) {
-        
+    static bool Place(int indexX, int indexY, string sign) {
+    
+        if (panels[indexX, indexY] != "X" || panels[indexX, indexY] != "O") panels[indexX, indexY] = sign;
+
         if (panels[indexX, 0] == sign)
             if (panels[indexX, 1] == sign)
                 if (panels[indexX, 2] == sign)
