@@ -1,23 +1,6 @@
-﻿using System.Collection.Generic;
-
-namespace TicTacToe;
+﻿namespace TicTacToe;
 
 class Program {
-    
-    // static bool running = false;
-
-    static Dictionary<string, int[]> inputToIndices = new Dictionary<string, int[2]>(9);
-
-    inputToIndices.Add("1", {0, 0});
-    inputToIndices.Add("2", {0, 1});
-    inputToIndices.Add("3", {0, 2});
-    inputToIndices.Add("4", {1, 0});
-    inputToIndices.Add("5", {1, 1});
-    inputToIndices.Add("6", {1, 2});
-    inputToIndices.Add("7", {2, 0});
-    inputToIndices.Add("8", {2, 1});
-    inputToIndices.Add("9", {2, 2});
-
     static string[,] panels = new string[3, 3] {
         {"1", "2", "3"},
         {"4", "5", "6"},
@@ -25,78 +8,112 @@ class Program {
     };
 
     static void Main(String[] args) {
-        System.Console.WriteLine("TIC TAC TOE\n");
-        System.Console.WriteLine(PanelParser());
+        System.Console.Title = "Tic Tac Toe";
 
-        // InputPlayerOne();
+        for (int i = 0; i < 9; i++) {
+            System.Console.Clear();
+            System.Console.WriteLine("TIC TAC TOE\n===========");
+            System.Console.WriteLine(Board());
 
-        // System.Console.WriteLine(PanelParser());
-
-        // InputPlayerTwo();
-
-        // System.Console.WriteLine(PanelParser());
-
-        // while (!running) {
-
-        // }
-
-        // for (int i = 0; i < 9; i++) {
-        //     if (i % 2 == 0) InputPlayerOne();
-        //     else InputPlayerTwo();
-
-        //     System.Console.WriteLine(PanelParser());
-        // }
+            if (i % 2 == 0) {
+                if (PlayerInput("X")) {
+                    System.Console.Clear();
+                    System.Console.WriteLine("TIC TAC TOE\n===========");
+                    System.Console.WriteLine("\nCONGRATS! Player X has won the game!");
+                    break;
+                }
+            } else {
+                if (PlayerInput("O")) {
+                    System.Console.Clear();
+                    System.Console.WriteLine("TIC TAC TOE\n===========");
+                    System.Console.WriteLine("\nCONGRATS! Player O has won the game!");
+                    break;
+                }
+            }
+        }
     }
 
-    static string PanelParser() {
-        string returnString = "";
+    static string Board() {
+        string returnString = "\n";
 
         for  (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) returnString += $"[{panels[i, j]}]";
 
-            returnString += "\n";    
+            returnString += "\n";  
         }
 
         return returnString;
     } 
+    
+    static bool Place(int indexY, int indexX, string sign) {
 
-    static void InputPlayerOne() {
-        System.Console.Write("Player 1 input position here [X]: ");
-        string choice = Console.ReadLine();
+        if (panels[indexY, indexX] != "X" && panels[indexY, indexX] != "O") {
+            panels[indexY, indexX] = sign;
+        } else {
+            System.Console.WriteLine("try again lol\n");
+            PlayerInput(sign);
+        }
 
-        
+        if (panels[indexY, 0] == sign) {
+            if (panels[indexY, 1] == sign) {
+                if (panels[indexY, 2] == sign) {
+                    return true;
+                }
+            }
+        }
+        if (panels[0, indexX] == sign) {
+            if (panels[1, indexX] == sign) {
+                if (panels[2, indexX] == sign) {
+                    return true;
+                }
+            }
+        }
+        if (indexY == indexX) {
+            if (panels[0, 0] == panels[1, 1]) {
+                if (panels[1, 1] == panels[2, 2]) {
+                    return true;
+                }
+            }
+        }
+        if (indexY == (2 - indexX)) {
+            if (panels[0, 2] == panels[1, 1]) {
+                if (panels[1, 1] == panels[2, 0]) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
-    // static void InputPlayerTwo() {
-    //     System.Console.Write("Player 2 input position here [O]: ");
-    //     string choice = Console.ReadLine();
+    static bool PlayerInput(string sign) {
+        System.Console.Write($"Player {sign} input position here: ");
+        string choice = Console.ReadLine();
 
-    //     string panelState = panels[int.Parse(choice) - 1].state;
-
-    //     if (panelState != "X" || panelState != "O") panelState = "O";
-    // }
-    
-    static bool Place(int indexX, int indexY, string sign) {
-    
-        if (panels[indexX, indexY] != "X" || panels[indexX, indexY] != "O") panels[indexX, indexY] = sign;
-
-        if (panels[indexX, 0] == sign)
-            if (panels[indexX, 1] == sign)
-                if (panels[indexX, 2] == sign)
-                    return true;
-
-        else if (panels[0, indexY] == sign)
-            if (panels[1, indexY] == sign)
-                if (panels[2, indexY] == sign)
-                    return true;
-
-        else if (indexX == indexY)
-            if (panels[0, 0] == panels[1, 1] && panels[1, 1] == panels[2, 2])
-                return true;
-
-        else if (indexX == (2 - indexY))
-            if (panels[0, 3] == panels[1, 1] && panels[1, 1] == panels[3, 0])
-                return true;
+        switch (choice) {
+            case "1":
+                return Place(0, 0, sign);
+            case "2":
+                return Place(0, 1, sign);
+            case "3":
+                return Place(0, 2, sign);
+            case "4":
+                return Place(1, 0, sign);
+            case "5":
+                return Place(1, 1, sign);
+            case "6":
+                return Place(1, 2, sign);
+            case "7":
+                return Place(2, 0, sign);
+            case "8":
+                return Place(2, 1, sign);
+            case "9":
+                return Place(2, 2, sign);
+            default:
+                System.Console.WriteLine("invalid input\n");
+                PlayerInput(sign);
+                break;
+        }
 
         return false;
     }
