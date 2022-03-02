@@ -6,17 +6,17 @@ class Program {
     
     // static bool running = false;
 
-    static Dictionary< string, Tuple<int, int> > inputToIndices = new Dictionary< string, Tuple<int, int> >(9);
+    static Dictionary<string, int[]> inputToIndices = new Dictionary<string, int[2]>(9);
 
-    inputToIndices.Add("1", Tuple.Create(0, 0));
-    inputToIndices.Add("2", Tuple.Create(0, 1));
-    inputToIndices.Add("3", Tuple.Create(0, 2));
-    inputToIndices.Add("4", Tuple.Create(1, 0));
-    inputToIndices.Add("5", Tuple.Create(1, 1));
-    inputToIndices.Add("6", Tuple.Create(1, 2));
-    inputToIndices.Add("7", Tuple.Create(2, 0));
-    inputToIndices.Add("8", Tuple.Create(2, 1));
-    inputToIndices.Add("9", Tuple.Create(2, 2));
+    inputToIndices.Add("1", {0, 0});
+    inputToIndices.Add("2", {0, 1});
+    inputToIndices.Add("3", {0, 2});
+    inputToIndices.Add("4", {1, 0});
+    inputToIndices.Add("5", {1, 1});
+    inputToIndices.Add("6", {1, 2});
+    inputToIndices.Add("7", {2, 0});
+    inputToIndices.Add("8", {2, 1});
+    inputToIndices.Add("9", {2, 2});
 
     static string[,] panels = new string[3, 3] {
         {"1", "2", "3"},
