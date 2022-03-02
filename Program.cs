@@ -63,26 +63,26 @@ class Program {
 
     //     if (panelState != "X" || panelState != "O") panelState = "O";
     // }
-
+    
     static bool CheckWinner(int indexX, int indexY, string sign) {
         
-        if (panels[indexX, indexY--] == sign) {
-            if (panels[indexX, indexY - 2] == sign) {
-                return true;
-            }
-        }
+        if (panels[indexX, 0] == sign)
+            if (panels[indexX, 1] == sign)
+                if (panels[indexX, 2] == sign)
+                    return true;
 
-        if (panels[indexX++, indexY--] == sign) {
-            if (panels[indexX, indexY - 2] == sign) {
-                return true;
-            }
-        }
+        else if (panels[0, indexY] == sign)
+            if (panels[1, indexY] == sign)
+                if (panels[2, indexY] == sign)
+                    return true;
 
-        if (panels[indexX++, indexY] == sign) {
-            if (panels[indexX + 2, indexY] == sign) {
+        else if (indexX == indexY)
+            if (panels[0, 0] == panels[1, 1] && panels[1, 1] == panels[2, 2])
                 return true;
-            }
-        }
+
+        else if (indexX == (2 - indexY))
+            if (panels[0, 3] == panels[1, 1] && panels[1, 1] == panels[3, 0])
+                return true;
 
         return false;
     }
