@@ -31,6 +31,8 @@ class Program {
                 }
             }
         }
+
+        System.Console.ReadKey();
     }
 
     static string Board() {
